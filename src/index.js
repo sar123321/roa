@@ -56,7 +56,7 @@ ReactDOM.render(
     <MobilePage open={true} title={"Market"} text={"Slices can be bought or sold in a bid-ask marketplace setting. Fans who want to own a specific slice are able to place a bid order. Existing slice holders will be notified immediately if there is a bid order and can either sell or hold on to their respective slice. Fans who own a slice can place it for sale with an asking price. Once a holder lists their slice for their asking price, fans who want the slice are able to buy.  Buying into an artist early can present an opportunity to turn a profit."}/>
     </Route>
     <Route path="/interact">
-    <MobilePage open={true} title={"Interact"} text={"Slices grant access to the sliceholder to participate in exclusive interactions with that specific artist. Sliceholder privileges could include being able to submit a beat, or some sort of design to the artist whose slices they hold. Additionally, a sliceholder gets first access to exclusive merch, private Q&As, process videos and much more."}/>
+    <MobilePage open={true} title={"Interact"} text={"Slices grant fans access to participate in exclusive interactions with that specific artist.  Once a fan is a “sliceholder” they are able to engage in private Q&As and intimate videos, attain exclusive merch, submit a beat or graphic design to that artist and much more."}/>
     </Route> 
     </Router>
   </React.StrictMode>,

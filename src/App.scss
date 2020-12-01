@@ -85,6 +85,7 @@ canvas:active, canvas:focus {
 }
 .about-modal {
   overflow: scroll;
+  -webkit-overflow-scrolling: touch;
   position: fixed;
   height: 100vh;
   z-index: 10;
@@ -143,6 +144,7 @@ canvas:active, canvas:focus {
   width: 100%;
   padding-top: 10rem;
   overflow: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 a {
   color: $white !important;
