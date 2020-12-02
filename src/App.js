@@ -75,8 +75,6 @@ const config ={
 
      
 
-    
-
 };
 
 
@@ -85,7 +83,7 @@ const config ={
 
 
 
-firebase.initializeApp(config);
+
 
 
 
@@ -397,7 +395,23 @@ class Form extends React.Component {
 
   handleSubmit = (event) => {
     
-    firebase.database().ref('/').set(this.state);
+    var db = firebase.firestore();
+
+    db.collection("waitlist").add({
+      createdAt: new Date(),
+      first: this.state.firstName,
+      last: this.state.lastName,
+      email: this.state.email
+    })
+    .then(function(docRef) {
+      //console.log("Document written with ID: ", docRef.id);
+    })
+    .catch(function(error) {
+      //console.error("Error adding document: ", error);
+    });
+
+    
+
     event.preventDefault();
     this.setState({submitted: true}, () => {setTimeout(() => {
       this.setState({yourein:true})
@@ -488,6 +502,9 @@ class App extends React.Component {
   
   constructor(props) {
     super(props);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
     this.state = {
       active: null,
       hovered: null,
