@@ -450,6 +450,7 @@ a {
   box-shadow: 0px 0px 0px $splitPea;
   background-color: $splitPea !important;
   background: $splitPea !important;
+   -webkit-appearance: none;
   font-family: 'Mabry';
   transform: scale(1);
   transition: transform 200ms ease, box-shadow 400ms ease;  
