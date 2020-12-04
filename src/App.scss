@@ -4,7 +4,7 @@ $splitPea: #92C83E;
 $orange:#F6871F;
 $white: #FFFEF9;
 $black: #231F20;
-
+$red: #E93127;
 
 @font-face {
     font-family: 'Decibel';
@@ -103,7 +103,7 @@ canvas:active, canvas:focus {
   transition: all 800ms ease;
 }
 .about-modal-closed {
-
+  font-size: 0rem;
   position: fixed;
   top: 0rem;
   bottom: 0rem;
@@ -120,11 +120,11 @@ canvas:active, canvas:focus {
 
 }
 .about-modal-inner {
-  
-  height: 30%;
-  width: 50%;
+  font-size: 3.2rem;
+  height: 100%;
+  width: 100%;
   border: 1px solid $black;
-  border-radius: 30px;
+  border-radius: 0px;
   background-color: $splitPea;
   z-index: 9;
   display: flex;
@@ -132,8 +132,8 @@ canvas:active, canvas:focus {
   align-items:center;
   flex-direction: column;
   color: $white;
-  padding: 2rem 3rem;
-  padding-bottom: 4rem;
+  padding: 0rem 3rem;
+  
   font-family: Syne;
   box-shadow: 0px 10px 8px $splitPea;
   background-image: url('./stars.gif');
@@ -156,9 +156,9 @@ a {
   justify-self: start;
   align-self: flex-end;
   margin-top: 3rem;
-  font-size: 1.6rem;
+  font-size: 3.2rem;
   border: 1px solid $white;
-  padding: 2px 8px;
+  padding: 2px 12px;
   font-weight: 200;
   cursor: pointer;
   border-radius:8px;
@@ -386,6 +386,7 @@ a {
   transition: all 1000ms ease 0ms;
 }
 .yourein-active {
+  text-align: center;
    opacity: 1;
   transition: all 1000ms ease 800ms;
 }
@@ -403,6 +404,7 @@ a {
 .canvas-mobile {
   height: 35vh !important;
 }
+
 .form-element {
   height: 30px;
   background-color: $white;
@@ -429,6 +431,14 @@ a {
 .form-element:active, .form-element:focus {
   outline: 0;
   -moz-outline-style: none;
+}
+.email-registered-label {
+  color: $red;
+}
+.email-registered-input {
+  border: 1px solid $red;
+  animation: shake 1s;
+
 }
 .submit-button {
   border: 1px solid $black;
@@ -518,3 +528,17 @@ a {
   }
 }
 */
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}

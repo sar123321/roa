@@ -377,8 +377,10 @@ class Form extends React.Component {
       lastName: '',
       email: '',
       submitted: false,
-      yourein: false
+      yourein: false,
+      alreadyregistered: false,
     };
+    this.db = firebase.firestore();
 
      this.ticketValues = {active: [1.1,1.1,1.1], inactive: [1,1,1]}
     
@@ -393,29 +395,55 @@ class Form extends React.Component {
     this.setState({email: event.target.value});
   }
 
+  writeData = () => {
+        console.log('called')
+        this.db.collection("waitlist").add({
+            createdAt: new Date(),
+            first: this.state.firstName,
+            last: this.state.lastName,
+            email: this.state.email
+          })
+          .then((docRef) => {
+            console.log('right here')
+            this.setState({submitted: true, alreadyregistered:false}, () => {setTimeout(() => {
+              this.setState({yourein:true})
+            }, 500)
+            console.log('here')
+          });
+          })
+          .catch(function(error) {
+            console.error("Error adding document: ", error);
+          });
+  }
+
   handleSubmit = (event) => {
     
-    var db = firebase.firestore();
-
-    db.collection("waitlist").add({
-      createdAt: new Date(),
-      first: this.state.firstName,
-      last: this.state.lastName,
-      email: this.state.email
+    this.db.collection("waitlist").where("email", "==", this.state.email)
+    .get()
+    .then((querySnapshot) => {
+        console.log(querySnapshot.empty)
+        if (!querySnapshot.empty) {
+          console.log('error thrown')
+          throw "Email already exists"
+        }
+        else {
+          console.log('new email')
+          this.writeData()
+        }
     })
-    .then(function(docRef) {
-      //console.log("Document written with ID: ", docRef.id);
-    })
-    .catch(function(error) {
-      //console.error("Error adding document: ", error);
+    .catch((error) => {
+      if (error = "Email already exists") this.setState({alreadyregistered:true})
     });
+
+    
+    
+
+    
 
     
 
     event.preventDefault();
-    this.setState({submitted: true}, () => {setTimeout(() => {
-      this.setState({yourein:true})
-    }, 500)});
+    
     
     
   }
@@ -452,9 +480,9 @@ class Form extends React.Component {
           <input className={"x " + (isMobile ? "form-element form-element-mobile": "form-element")} type="text" name="lastName" autoComplete="off" value={this.state.lastName} onChange={this.handleLastNameChange}/>
         </label>
        
-        <label className={"mt5 df fc ais syne f16 " + (isMobile ? "w85":"w50")}>
-          Email{' '}
-          <input className={"x " + (isMobile ? "form-element form-element-mobile": "form-element")} type="email" name="email" autoComplete="off" value={this.state.email} onChange={this.handleEmailChange}/>
+        <label className={"mt5 df fc ais syne f16 " + (isMobile ? "w85 ":"w50 ") + (this.state.alreadyregistered ? "email-registered-label" : "")}>
+          <div className="df aie">Email{' '} {this.state.alreadyregistered && <span className="f8 mabry pl5 pb5">(Email already regisered)</span>}</div>
+          <input className={"x " + (isMobile ? "form-element form-element-mobile ": "form-element ") + (this.state.alreadyregistered ? "email-registered-input" : "")} type="email" name="email" autoComplete="off" value={this.state.email} onChange={this.handleEmailChange}/>
         </label>
         <input className={"mt15 submit-button"} type="submit" value="Sign up" />
       </form>
@@ -485,7 +513,7 @@ class Modal extends React.Component  {
     <div className={(this.props.open ? "about-modal" : "about-modal-closed")}>
     <div className={(isMobile ? "about-modal-inner about-modal-inner-mobile" : "about-modal-inner")}>
     <span className={(isMobile ? "about-modal-x about-modal-x-mobile" : "about-modal-x")} onClick={this.props.closeModal}>X</span>
-    <span className="f16 tl mabry about-modal-content">{this.props.text}</span>
+    <span className="tl mabry about-modal-content">{this.props.text}</span>
     </div>
     </div>
     </React.Fragment>
