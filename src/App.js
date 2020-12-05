@@ -436,7 +436,11 @@ class Form extends React.Component {
     });
 
     
-    
+    mailchimp.post('/lists/id/members', {
+  email_address : '...',
+  status : 'subscribed'
+  ...
+})
 
     
 
